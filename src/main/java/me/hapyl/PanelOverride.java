@@ -22,14 +22,14 @@ public class PanelOverride extends JPanel {
         final JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        panel.add(new JLabel("Managing: " + model.getName()));
+        panel.add(new JLabel("Model: " + model.getName()));
         panel.add(Box.createVerticalStrut(10));
 
         // Immutable data
-        panel.add(new JLabel("parent: " + model.getParent()));
+        panel.add(new JLabel("Parent: " + model.getParent()));
         panel.add(Box.createVerticalStrut(10));
 
-        panel.add(new JLabel("texture:" + model.getTexture()));
+        panel.add(new JLabel("Texture: " + model.getTexture()));
         panel.add(Box.createVerticalStrut(10));
 
         // Mutable data

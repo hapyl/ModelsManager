@@ -4,10 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import javax.annotation.Nonnull;
-import javax.lang.model.element.ModuleElement;
 import javax.swing.*;
 import java.io.File;
-import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -36,7 +34,18 @@ public class Manager {
         return models;
     }
 
-    public void load(@Nonnull File file) throws IllegalArgumentException {
+    public void loadFile(@Nonnull File file) {
+        for (Model model : this.models) {
+            if (model.compare(file)) {
+                Main.jError("An identical file is already open!");
+                return;
+            }
+        }
+
+        this.models.add(Model.load(file));
+    }
+
+    public void loadFolder(@Nonnull File file) throws IllegalArgumentException {
         final String filePath = file.getPath();
 
         if (!file.isDirectory()) {

@@ -7,7 +7,6 @@ import com.google.gson.JsonPrimitive;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class Model {
+public class Model implements Comparable {
 
     private final File file;
     private final String name;
@@ -86,6 +85,10 @@ public class Model {
     }
 
     public void save() {
+        save(true);
+    }
+
+    public void save(boolean prompt) {
         modified = false;
 
         // Save the file
@@ -114,7 +117,10 @@ public class Model {
             parent.add("overrides", overrides);
 
             Manager.GSON.toJson(parent, writer);
-            Main.jInfo("Saved!");
+
+            if (prompt) {
+                Main.jInfo("Saved!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -123,6 +129,15 @@ public class Model {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public boolean compare(@Nullable Object object) {
+        return switch (object) {
+            case Model otherModel -> this == otherModel;
+            case File otherFile -> file.getName().equals(otherFile.getName());
+            case null, default -> false;
+        };
     }
 
     @Nullable
