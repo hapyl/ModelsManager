@@ -143,7 +143,7 @@ public class Main {
             }
         });
 
-        final JButton buttonFolder = new JButton("Choose Folder");
+        final JButton buttonFolder = new JButton("Select Folder or Drag & Drop");
 
         buttonFolder.addActionListener((ev) -> {
             do {
